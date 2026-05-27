@@ -8,7 +8,7 @@ const up = (delay = 0) => ({
 })
 
 const STATS = [
-  { value: '500+',     label: 'Restaurants' },
+  { value: '50+',      label: 'Restaurants' },
   { value: '₹2Cr+',   label: 'Billed monthly' },
   { value: '< 2 min', label: 'Setup time' },
   { value: '4.9 ★',   label: 'Rating' },
