@@ -1,4 +1,3 @@
-import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
 
 const ROWS = [
@@ -36,13 +35,48 @@ const Cross = () => (
 )
 
 export default function Compare() {
-  const { ref, inView } = useInView({ triggerOnce: true })
   return (
-    <section style={{ padding: '96px 32px', background: 'var(--bg)', borderTop: '1px solid var(--border)' }}>
+    <section style={{ padding: '96px 24px', background: 'var(--bg)', borderTop: '1px solid var(--border)' }}>
+      <style>{`
+        .compare-table { border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; background: white; }
+        .compare-header { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--bg2); border-bottom: 1.5px solid var(--border); }
+        .compare-header-cell { padding: 16px 20px; }
+        .compare-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid var(--border); }
+        .compare-row:last-child { border-bottom: none; }
+        .compare-label { padding: 18px 20px; display: flex; align-items: center; }
+        .compare-old { padding: 18px 20px; border-left: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; }
+        .compare-new { padding: 18px 20px; border-left: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; background: rgba(22,163,74,0.025); }
+
+        @media (max-width: 640px) {
+          .compare-header { display: none; }
+          .compare-table { border-radius: 16px; }
+          .compare-row { display: flex; flex-direction: column; padding: 0; }
+          .compare-label {
+            padding: 14px 16px 8px;
+            font-size: 13px !important;
+            font-weight: 700 !important;
+            color: var(--text) !important;
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+          }
+          .compare-old {
+            padding: 12px 16px;
+            border-left: none;
+            border-bottom: 1px solid var(--border);
+            background: rgba(239,68,68,0.03);
+          }
+          .compare-new {
+            padding: 12px 16px;
+            border-left: none;
+          }
+        }
+      `}</style>
+
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
-        <motion.div ref={ref}
+        <motion.div
           initial={{ y: 20, opacity: 0 }}
-          animate={inView ? { y: 0, opacity: 1 } : {}}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
           style={{ textAlign: 'center', marginBottom: 56 }}>
           <p style={{ fontSize: 12, fontWeight: 700, color: 'var(--green)', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>
             Why switch
@@ -60,32 +94,29 @@ export default function Compare() {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          style={{ border: '1.5px solid var(--border)', borderRadius: 20, overflow: 'hidden', background: 'white' }}>
+          className="compare-table">
 
-          {/* Header */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', background: 'var(--bg2)', borderBottom: '1.5px solid var(--border)' }}>
-            <div style={{ padding: '16px 24px' }} />
-            <div style={{ padding: '16px 24px', borderLeft: '1px solid var(--border)', textAlign: 'center' }}>
+          {/* Header — hidden on mobile */}
+          <div className="compare-header">
+            <div className="compare-header-cell" />
+            <div className="compare-header-cell" style={{ borderLeft: '1px solid var(--border)', textAlign: 'center' }}>
               <p style={{ fontFamily: 'Outfit', fontSize: 12, fontWeight: 700, color: 'var(--muted)', letterSpacing: 1, textTransform: 'uppercase' }}>Traditional POS</p>
             </div>
-            <div style={{ padding: '16px 24px', borderLeft: '1px solid var(--border)', textAlign: 'center', background: 'rgba(22,163,74,0.04)' }}>
+            <div className="compare-header-cell" style={{ borderLeft: '1px solid var(--border)', textAlign: 'center', background: 'rgba(22,163,74,0.04)' }}>
               <p style={{ fontFamily: 'Outfit', fontSize: 12, fontWeight: 700, color: 'var(--green)', letterSpacing: 1, textTransform: 'uppercase' }}>BillByte</p>
             </div>
           </div>
 
-          {ROWS.map((row, i) => (
-            <div key={row.label} style={{
-              display: 'grid', gridTemplateColumns: '1fr 1fr 1fr',
-              borderBottom: i < ROWS.length - 1 ? '1px solid var(--border)' : 'none',
-            }}>
-              <div style={{ padding: '18px 24px', display: 'flex', alignItems: 'center' }}>
+          {ROWS.map((row) => (
+            <div key={row.label} className="compare-row">
+              <div className="compare-label">
                 <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text2)' }}>{row.label}</span>
               </div>
-              <div style={{ padding: '18px 24px', borderLeft: '1px solid var(--border)', display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+              <div className="compare-old">
                 <Cross />
                 <span style={{ fontSize: 13, color: 'var(--text3)', lineHeight: 1.5 }}>{row.old}</span>
               </div>
-              <div style={{ padding: '18px 24px', borderLeft: '1px solid var(--border)', display: 'flex', alignItems: 'flex-start', gap: 10, background: 'rgba(22,163,74,0.025)' }}>
+              <div className="compare-new">
                 <Check />
                 <span style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.5, fontWeight: 500 }}>{row.bb}</span>
               </div>
