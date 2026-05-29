@@ -39,7 +39,6 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
 @media (max-width: 768px) {
   .stats-grid   { grid-template-columns: repeat(2,1fr) !important; }
   .nav-links    { display: none !important; }
-  .nav-login    { display: none !important; }
   .step-grid    { grid-template-columns: 52px 1fr !important; gap: 20px !important; }
   .footer-grid  { grid-template-columns: 1fr 1fr !important; }
   .pricing-grid { grid-template-columns: 1fr !important; }
