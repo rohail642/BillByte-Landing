@@ -17,7 +17,7 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        padding: '0 40px', height: 64,
+        padding: '0 clamp(16px, 4vw, 40px)', height: 64,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         background: scrolled ? 'rgba(254,249,240,0.92)' : 'rgba(254,249,240,0.5)',
         backdropFilter: 'blur(20px)',
