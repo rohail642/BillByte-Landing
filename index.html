@@ -3,14 +3,125 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BillByte — Restaurant OS for Modern India</title>
+
+    <!-- Primary SEO -->
+    <title>BillByte — Restaurant POS, Billing & KOT Software for India</title>
+    <meta name="description" content="BillByte is an all-in-one restaurant POS for India — billing, KOT printing, table maps, inventory, CRM, and Zomato/Swiggy online orders in one system. No hardware lock-in, works on any device." />
+    <link rel="canonical" href="https://www.billbyte.co.in/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#16a34a" />
+    <meta name="author" content="BillByte" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillByte" />
+    <meta property="og:title" content="BillByte — Restaurant POS, Billing & KOT Software for India" />
+    <meta property="og:description" content="All-in-one restaurant POS for India: billing, KOT, table maps, inventory, CRM, and Zomato/Swiggy online orders. No hardware lock-in, works on any device." />
+    <meta property="og:url" content="https://www.billbyte.co.in/" />
+    <!-- TODO: replace favicon.png with a dedicated 1200x630 og-image.png for a large share preview -->
+    <meta property="og:image" content="https://www.billbyte.co.in/favicon.png" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BillByte — Restaurant POS for India" />
+    <meta name="twitter:description" content="All-in-one restaurant POS for India: billing, KOT, table maps, inventory, CRM, and online orders. Works on any device." />
+    <meta name="twitter:image" content="https://www.billbyte.co.in/favicon.png" />
+
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+
+    <!-- Structured data: Organization + Software + FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.billbyte.co.in/#organization",
+          "name": "BillByte",
+          "url": "https://www.billbyte.co.in/",
+          "logo": "https://www.billbyte.co.in/favicon.png",
+          "description": "All-in-one restaurant operating system for India — POS, billing, KOT, inventory, CRM and online orders.",
+          "areaServed": "IN"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "BillByte Restaurant POS",
+          "operatingSystem": "Web, Android, iOS, Windows",
+          "applicationCategory": "BusinessApplication",
+          "url": "https://www.billbyte.co.in/",
+          "description": "Restaurant POS for India: billing, KOT printing, table maps, inventory, CRM, and Zomato/Swiggy online orders in one system. No hardware lock-in, works on any device.",
+          "publisher": { "@id": "https://www.billbyte.co.in/#organization" },
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "INR",
+            "description": "14-day free trial. Get in touch via WhatsApp or email to get started."
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Do I need to buy any hardware?",
+              "acceptedAnswer": { "@type": "Answer", "text": "No. BillByte works on any device you already own — Android phones, iPhones, iPads, Windows laptops, or any browser. There is nothing to install or purchase." }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the 14-day free trial work?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Get in touch via WhatsApp or email and we'll set you up with a free trial — usually the same day. You get full access to all features during the trial period with no commitment." }
+            },
+            {
+              "@type": "Question",
+              "name": "Can my staff use it without training?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes. The waiter view is a single full-screen interface — tap a table, select items, send KOT. Most waiters figure it out within minutes. The cashier and owner views are equally intuitive." }
+            },
+            {
+              "@type": "Question",
+              "name": "Does it work if my internet goes down?",
+              "acceptedAnswer": { "@type": "Answer", "text": "BillByte requires an internet connection to sync data with the server. We recommend having a mobile data backup (hotspot) for uninterrupted service during outages." }
+            },
+            {
+              "@type": "Question",
+              "name": "How do Zomato and Swiggy orders come in?",
+              "acceptedAnswer": { "@type": "Answer", "text": "BillByte receives orders from Zomato and Swiggy via webhooks. New orders appear automatically in your Online Orders section and can be pushed to the kitchen without manual entry." }
+            },
+            {
+              "@type": "Question",
+              "name": "Is my data safe?",
+              "acceptedAnswer": { "@type": "Answer", "text": "All data is encrypted in transit and stored in a secure cloud database hosted in Mumbai. Only you and your authorized staff can access your restaurant's data." }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I use BillByte for multiple outlets?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes — the Chain plan includes a multi-outlet admin dashboard where you can manage menus, staff, and reports across all your locations from one place. Contact us to get set up." }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Crawlable fallback: visible to search engines before/without JS. React replaces this on mount. -->
+      <main style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-gradient(160deg,#fff8ed 0%,#fef9f0 50%,#f0faf4 100%);color:#1a1208">
+        <h1 style="font-size:clamp(40px,8vw,84px);font-weight:900;letter-spacing:-3px;line-height:0.95;margin:0">The smartest POS<br><span style="color:#16a34a">for India.</span></h1>
+        <p style="font-size:18px;max-width:560px;line-height:1.7;margin:28px auto 0;color:#5a5040">
+          BillByte is an all-in-one restaurant operating system for India — billing, KOT printing,
+          table maps, inventory, CRM, and Zomato &amp; Swiggy online orders in one system.
+          No hardware lock-in. Works on any device.
+        </p>
+        <p style="margin-top:32px">
+          <a href="https://wa.me/917892718642" style="color:#16a34a;font-weight:700">Get in touch on WhatsApp</a>
+          &nbsp;·&nbsp;
+          <a href="https://app.billbyte.co.in" style="color:#16a34a;font-weight:700">Log in</a>
+        </p>
+      </main>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
