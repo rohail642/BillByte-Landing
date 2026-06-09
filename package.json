@@ -6,7 +6,8 @@
     "dev": "vite --port 3001",
     "build": "vite build",
     "preview": "vite preview",
-    "og": "node scripts/render-og.mjs"
+    "og": "node scripts/render-og.mjs",
+    "favicon": "node scripts/render-favicon.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.105.0",
