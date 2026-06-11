@@ -1,5 +1,28 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { Em } from '../components/doodles'
+
+const TYPED = '> SETUP IN 2 MIN · LIVE THE SAME DAY ✓'
+
+/* Terminal line that types itself when the card scrolls into view */
+function TypeLine() {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.4 })
+  const [n, setN] = useState(0)
+  useEffect(() => {
+    if (!inView || n >= TYPED.length) return
+    const t = setTimeout(() => setN(c => c + 1), 42)
+    return () => clearTimeout(t)
+  }, [inView, n])
+  return (
+    <p ref={ref} style={{
+      fontFamily: "'VT323', monospace", fontSize: 19, color: '#4ade80',
+      letterSpacing: 1.5, marginBottom: 20, minHeight: 24,
+    }}>
+      {TYPED.slice(0, n)}<span className="type-cursor">▌</span>
+    </p>
+  )
+}
 
 export default function CTA() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
@@ -15,24 +38,27 @@ export default function CTA() {
           borderRadius: 28, padding: '64px 48px', textAlign: 'center',
           position: 'relative', overflow: 'hidden',
         }}>
+        {/* Coupon border */}
+        <div style={{
+          position: 'absolute', inset: 12, borderRadius: 20,
+          border: '1.5px dashed rgba(255,255,255,0.13)', pointerEvents: 'none',
+        }} />
         {/* Green top accent */}
         <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 180, height: 3, background: 'var(--green)', borderRadius: '0 0 6px 6px' }} />
 
-        <p style={{ fontSize: 12, fontWeight: 700, color: 'rgba(255,255,255,0.35)', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 20 }}>
-          Ready to modernize?
-        </p>
+        <TypeLine />
         <h2 style={{
           fontFamily: 'Outfit', fontSize: 'clamp(28px, 4vw, 48px)',
           fontWeight: 900, letterSpacing: '-2px', color: 'white',
           marginBottom: 16, lineHeight: 1.1,
         }}>
           Your restaurant, running smarter<br />
-          <span style={{ color: 'var(--green)' }}>from day one.</span>
+          <Em color="var(--green)">from day one.</Em>
         </h2>
         <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', marginBottom: 36, maxWidth: 420, margin: '0 auto 36px' }}>
           Get in touch and we'll set up your restaurant on BillByte — usually done the same day.
         </p>
-        <div className="cta-btns" style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div className="cta-btns" style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', position: 'relative' }}>
           <a href="https://wa.me/917892718642" target="_blank" rel="noreferrer" style={{
             padding: '14px 32px', borderRadius: 10, fontSize: 15, fontWeight: 700,
             fontFamily: 'Outfit', background: 'var(--green)', color: 'white',

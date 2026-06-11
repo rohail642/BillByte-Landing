@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const { scrollYProgress } = useScroll()
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 20)
@@ -67,6 +68,13 @@ export default function Navbar() {
           Get Access →
         </a>
       </div>
+
+      {/* Reading progress — thin green line under the nav */}
+      <motion.div style={{
+        position: 'absolute', left: 0, right: 0, bottom: -1, height: 2.5,
+        background: 'var(--green)', transformOrigin: 'left',
+        scaleX: scrollYProgress,
+      }} />
     </motion.nav>
   )
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Em, Scribbled } from '../components/doodles'
 
 const FAQS = [
   {
@@ -52,8 +53,13 @@ function Item({ faq, index }) {
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16,
           background: 'none', border: 'none', cursor: 'pointer',
         }}>
-        <span style={{ fontFamily: 'Outfit', fontSize: 16, fontWeight: 600, color: 'var(--text)', letterSpacing: '-0.2px' }}>
-          {faq.q}
+        <span style={{ display: 'flex', alignItems: 'baseline', gap: 14 }}>
+          <span style={{ fontFamily: "'VT323', monospace", fontSize: 18, color: 'var(--green)', flexShrink: 0 }}>
+            Q.{String(index + 1).padStart(2, '0')}
+          </span>
+          <span style={{ fontFamily: 'Outfit', fontSize: 16, fontWeight: 600, color: 'var(--text)', letterSpacing: '-0.2px' }}>
+            {faq.q}
+          </span>
         </span>
         <div style={{
           width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
@@ -100,7 +106,7 @@ export default function FAQ() {
             FAQ
           </p>
           <h2 style={{ fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-2px', color: 'var(--text)', marginBottom: 14 }}>
-            Questions we always get.
+            Questions we <Scribbled><Em>always</Em></Scribbled> get.
           </h2>
           <p style={{ fontSize: 16, color: 'var(--text3)' }}>
             Still have questions?{' '}

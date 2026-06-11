@@ -1,5 +1,6 @@
 import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
+import { Em } from '../components/doodles'
 
 const ROLES = [
   {
@@ -56,6 +57,70 @@ const ROLES = [
   },
 ]
 
+const TILTS = [-1.4, 0.9, -0.8, 1.3]
+
+/* Each role rendered as a staff ID badge — lanyard strip, punched hole, hanging slightly askew */
+function RoleCard({ r, index }) {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
+  const tilt = TILTS[index % TILTS.length]
+  return (
+    <motion.div ref={ref}
+      initial={{ y: 24, opacity: 0 }}
+      animate={inView ? { y: 0, opacity: 1 } : {}}
+      transition={{ duration: 0.55, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}>
+      <div className="tilt-card" style={{
+        position: 'relative', height: '100%', overflow: 'hidden',
+        background: 'var(--bg2)', border: '1.5px solid var(--border)',
+        borderRadius: 18, padding: '36px 22px 28px',
+        transform: `rotate(${tilt}deg)`, transformOrigin: 'top center',
+      }}
+      onMouseEnter={e => { e.currentTarget.style.transform = 'rotate(0deg) translateY(-4px)'; e.currentTarget.style.borderColor = r.border; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.08)' }}
+      onMouseLeave={e => { e.currentTarget.style.transform = `rotate(${tilt}deg)`; e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none' }}>
+
+        {/* Lanyard strip */}
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 7, background: r.color }} />
+        {/* Punched hole */}
+        <div style={{
+          position: 'absolute', top: 16, left: '50%', transform: 'translateX(-50%)',
+          width: 30, height: 9, borderRadius: 5, background: 'white',
+          border: '1.5px solid var(--border)',
+          boxShadow: 'inset 0 1.5px 3px rgba(0,0,0,0.12)',
+        }} />
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+          <div style={{
+            width: 38, height: 38, borderRadius: 10,
+            background: r.dim, color: r.color,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            border: `1px solid ${r.border}`,
+          }}>
+            {r.icon}
+          </div>
+          <span style={{ fontFamily: 'Outfit', fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', color: r.color }}>
+            {r.role}
+          </span>
+        </div>
+
+        <h3 style={{ fontFamily: 'Outfit', fontSize: 15, fontWeight: 700, color: 'var(--text)', marginBottom: 14, letterSpacing: '-0.2px', lineHeight: 1.3 }}>
+          {r.headline}
+        </h3>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
+          {r.points.map(p => (
+            <div key={p} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+              <div style={{
+                width: 5, height: 5, borderRadius: '50%', background: r.color,
+                flexShrink: 0, marginTop: 6, opacity: 0.7,
+              }} />
+              <span style={{ fontSize: 12.5, color: 'var(--text3)', lineHeight: 1.6 }}>{p}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 export default function Roles() {
   const { ref, inView } = useInView({ triggerOnce: true })
   return (
@@ -64,65 +129,20 @@ export default function Roles() {
         <motion.div ref={ref}
           initial={{ y: 20, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
-          style={{ textAlign: 'center', marginBottom: 56 }}>
+          style={{ textAlign: 'center', marginBottom: 60 }}>
           <p style={{ fontSize: 12, fontWeight: 700, color: 'var(--green)', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>
             Built for every role
           </p>
           <h2 style={{ fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-2px', color: 'var(--text)', marginBottom: 14 }}>
-            One platform.<br />Every person in your restaurant.
+            One platform.<br />Every <Em>person</Em> in your restaurant.
           </h2>
           <p style={{ fontSize: 16, color: 'var(--text3)', maxWidth: 480, margin: '0 auto', lineHeight: 1.65 }}>
             Each role gets their own focused view. No clutter, no confusion — just what they need to do their job.
           </p>
         </motion.div>
 
-        <div className="feat-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
-          {ROLES.map((r, i) => {
-            const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
-            return (
-              <motion.div key={r.role} ref={ref}
-                initial={{ y: 24, opacity: 0 }}
-                animate={inView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                style={{
-                  background: 'var(--bg2)', border: '1.5px solid var(--border)',
-                  borderRadius: 18, padding: '28px 22px', transition: 'all 0.2s',
-                }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = r.border; e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 28px rgba(0,0,0,0.07)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-                  <div style={{
-                    width: 38, height: 38, borderRadius: 10,
-                    background: r.dim, color: r.color,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    border: `1px solid ${r.border}`,
-                  }}>
-                    {r.icon}
-                  </div>
-                  <span style={{ fontFamily: 'Outfit', fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', color: r.color }}>
-                    {r.role}
-                  </span>
-                </div>
-
-                <h3 style={{ fontFamily: 'Outfit', fontSize: 15, fontWeight: 700, color: 'var(--text)', marginBottom: 14, letterSpacing: '-0.2px', lineHeight: 1.3 }}>
-                  {r.headline}
-                </h3>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
-                  {r.points.map(p => (
-                    <div key={p} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                      <div style={{
-                        width: 5, height: 5, borderRadius: '50%', background: r.color,
-                        flexShrink: 0, marginTop: 6, opacity: 0.7,
-                      }} />
-                      <span style={{ fontSize: 12.5, color: 'var(--text3)', lineHeight: 1.6 }}>{p}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            )
-          })}
+        <div className="feat-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+          {ROLES.map((r, i) => <RoleCard key={r.role} r={r} index={i} />)}
         </div>
       </div>
     </section>

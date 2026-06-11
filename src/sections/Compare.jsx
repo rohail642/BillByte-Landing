@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Struck } from '../components/doodles'
 
 const ROWS = [
   { label: 'Setup time',             old: 'Days of installation & training',   bb: 'Under 2 minutes, no IT team' },
@@ -49,10 +50,15 @@ function DesktopTable() {
         </div>
       </div>
       {ROWS.map((row, i) => (
-        <div key={row.label} style={{
-          display: 'grid', gridTemplateColumns: '1fr 1fr 1fr',
-          borderBottom: i < ROWS.length - 1 ? '1px solid var(--border)' : 'none',
-        }}>
+        <motion.div key={row.label}
+          initial={{ opacity: 0, x: -14 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            display: 'grid', gridTemplateColumns: '1fr 1fr 1fr',
+            borderBottom: i < ROWS.length - 1 ? '1px solid var(--border)' : 'none',
+          }}>
           <div style={{ padding: '18px 24px', display: 'flex', alignItems: 'center' }}>
             <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text2)' }}>{row.label}</span>
           </div>
@@ -64,7 +70,7 @@ function DesktopTable() {
             <Check />
             <span style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.5, fontWeight: 500 }}>{row.bb}</span>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   )
@@ -193,7 +199,7 @@ export default function Compare() {
             Why switch
           </p>
           <h2 style={{ fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-2px', color: 'var(--text)', marginBottom: 14 }}>
-            The old way vs. BillByte.
+            <Struck>The old way</Struck> vs. BillByte.
           </h2>
           <p style={{ fontSize: 16, color: 'var(--text3)', maxWidth: 440, margin: '0 auto', lineHeight: 1.65 }}>
             Traditional POS systems are slow, expensive, and built for another era.
